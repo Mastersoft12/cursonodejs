@@ -26,7 +26,7 @@ let salarios = [
 
 let getEmpleados = (id) => {
 
-    return new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) => {
         let empleadoBD = empleados.find(empleado => empleado.id === id);
 
         if (!empleadoBD) {
@@ -46,7 +46,7 @@ let getSalario = (empleado) => {
         if (!salarioBD) {
             reject(`No se encontro un salario para el usuario con Id ${empleado.id}`)
         } else {
-            resolve( {
+            resolve({
                 nombre: empleado.nombre,
                 salario: salarioBD.salario,
                 id: empleado.id
@@ -56,10 +56,20 @@ let getSalario = (empleado) => {
 }
 
 
+getEmpleados(20).then(empleado => {
+    return getSalario(empleado)
+
+}).then(resp => {
+    console.log(`El salario de ${resp.nombre} es de ${resp.salario}`)
+}).catch(err => {
+    console.log(err)
+})
+
+/*
 getEmpleados(2).then(empleado => {
 
     getSalario(empleado).then(respuesta => {
         console.log(`El salario de ${respuesta.nombre} es de ${respuesta.salario}`);
     }, err => console.log(err))
 
-}, err => console.log(err));
+}, err => console.log(err));*/
